@@ -11,22 +11,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.codetutr.form.Subscriber;
 
 @Controller
+@RequestMapping("/")
 public class FormController {
-	
 
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loadFormPage(Model m) {
 		m.addAttribute("subscriber", new Subscriber());
 		return "formPage";
 	}
-	
-	@RequestMapping(value="/", method=RequestMethod.POST)
-	public String submitForm(@Valid Subscriber subscriber, BindingResult result, Model m) {
-		if(result.hasErrors()) {
+
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public String submitForm(@Valid Subscriber subscriber,
+			BindingResult result, Model m) {
+		if (result.hasErrors()) {
 			return "formPage";
 		}
-		
-		m.addAttribute("message", "Successfully saved person: " + subscriber.toString());
+		m.addAttribute("message",
+				"Successfully saved person: " + subscriber.toString());
 		return "formPage";
 	}
 }

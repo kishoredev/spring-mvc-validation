@@ -6,12 +6,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.codetutr")
-public class WebConfig {
+@ComponentScan(basePackages = "com.codetutr.controller")
+public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
@@ -20,7 +22,7 @@ public class WebConfig {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -28,4 +30,9 @@ public class WebConfig {
 		return messageSource;
 	}
 	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/rajesh").setViewName("home");
+	}
+
 }
